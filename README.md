@@ -8,7 +8,7 @@ until the render time improves. Start by decreasing it in increments of 1000, an
 try lowering it in increments of 50 - 100.
 
 If you are using a MacBook that has a graphics card, then be aware that disabling graphics switching might 
-help the render image quicker.
+help make the image render quicker.
 
 Color smoothing and zoom-in/out will soon be available!
 
