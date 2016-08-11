@@ -7,7 +7,7 @@ public class MandelbrotSet extends Canvas{
     public final int WIDTH = 800;
     public final int HEIGHT = 600;
     public final double SCALE = 250.0;
-    public final int MAX_ITERATIONS = 1000;
+    public final int MAX_ITERATIONS = 5000;
     public int[] histogram = new int[MAX_ITERATIONS + 1];
 
     private BufferedImage image;
@@ -30,7 +30,7 @@ public class MandelbrotSet extends Canvas{
     public void render() {
         for (int x = 0; x < WIDTH; x++) {
             for (int y = 0; y < HEIGHT; y++) {
-                int color = escape((x - (WIDTH / 2.0)) / SCALE, (y - (HEIGHT / 2.0)) / SCALE);
+                int color = escape((x - (WIDTH / 1.5)) / SCALE, (y - (HEIGHT / 2.0)) / SCALE);
                 image.setRGB(x, y, color);
             }
         }
@@ -58,6 +58,13 @@ public class MandelbrotSet extends Canvas{
         while(x * x + y * y < 4 && iteration < MAX_ITERATIONS){
             double xTemp = x * x - y * y + x0;
             double yTemp = 2 * x * y + y0;
+
+            // Periodicity checking
+            if (x == xTemp && y == yTemp) {
+                iteration = MAX_ITERATIONS;
+                break;
+            }
+
             x = xTemp;
             y = yTemp;
             iteration++;
@@ -80,7 +87,7 @@ public class MandelbrotSet extends Canvas{
         }
 
         // The max number of iterations was not reached. Color the point in.
-        return Color.HSBtoRGB(hue, 1, 1);
+        return Color.HSBtoRGB(hue, 0.6f, 1);
     }
 
     public static void main(String[] args) {
