@@ -4,9 +4,9 @@ import java.awt.image.BufferedImage;
 
 public class MandelbrotSet extends Canvas{
 
-    public final int WIDTH = 800;
-    public final int HEIGHT = 600;
-    public final double SCALE = 250.0;
+    public final int WIDTH = 1920;
+    public final int HEIGHT = 1080;
+    public final double SCALE = 450.0;
     public final int MAX_ITERATIONS = 5000;
     public int[] histogram = new int[MAX_ITERATIONS + 1];
 
@@ -30,14 +30,14 @@ public class MandelbrotSet extends Canvas{
     public void render() {
         for (int x = 0; x < WIDTH; x++) {
             for (int y = 0; y < HEIGHT; y++) {
-                int color = escape((x - (WIDTH / 1.5)) / SCALE, (y - (HEIGHT / 2.0)) / SCALE);
+                int color = escape((x - (WIDTH / 2.0)) / SCALE, (y - (HEIGHT / 2.0)) / SCALE);
                 image.setRGB(x, y, color);
             }
         }
     }
 
     /**
-     * Complex numbers are noted used and compplex-number operations are manually simulated
+     * Complex data type is not used. Complex-number operations are manually simulated
      * by using two real numbers.
      * The parts of z_{n+1} = z²_n + c are substituted with:
      *
@@ -69,6 +69,7 @@ public class MandelbrotSet extends Canvas{
             y = yTemp;
             iteration++;
         }
+
         histogram[iteration]++;
         long total = 0;
         for (int i = 0; i < MAX_ITERATIONS; i++) {
@@ -87,7 +88,7 @@ public class MandelbrotSet extends Canvas{
         }
 
         // The max number of iterations was not reached. Color the point in.
-        return Color.HSBtoRGB(hue, 0.6f, 1);
+        return Color.HSBtoRGB(hue, 1.0f, 1.0f);
     }
 
     public static void main(String[] args) {
