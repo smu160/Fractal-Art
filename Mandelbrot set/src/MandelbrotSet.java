@@ -4,11 +4,9 @@ import java.awt.image.BufferedImage;
 
 public class MandelbrotSet extends Canvas{
 
-    public static float hue = 0.0f;
-    public static long total = 0;
     public final int WIDTH = 800;
     public final int HEIGHT = 600;
-    public final double SCALE = 200.0;
+    public final double SCALE = 250.0;
     public final int MAX_ITERATIONS = 1000;
     public int[] histogram = new int[MAX_ITERATIONS + 1];
 
@@ -23,7 +21,6 @@ public class MandelbrotSet extends Canvas{
         frame.setResizable(false);
         frame.getContentPane().add(this);
         frame.setVisible(true);
-
     }
 
     public void paint(Graphics g) {
@@ -65,15 +62,16 @@ public class MandelbrotSet extends Canvas{
             y = yTemp;
             iteration++;
         }
-
         histogram[iteration]++;
+        long total = 0;
         for (int i = 0; i < MAX_ITERATIONS; i++) {
             total += histogram[i];
         }
+        float hue = 0.0f;
         for (int i = 0; i < iteration; i++) {
 
             // Must be floating-point division.
-            hue += histogram[i] / total;
+            hue += (float)histogram[i] / total;
         }
 
         // If the point is within the Mandelbrot set, then color it black
@@ -81,9 +79,8 @@ public class MandelbrotSet extends Canvas{
             return 0x000000;
         }
 
-        // If the max number of iterations was not reached, then the point is
-        // not in the Mandelbrot set; color it.
-        return Color.HSBtoRGB(hue, 0.5f, 1);
+        // The max number of iterations was not reached. Color the point in.
+        return Color.HSBtoRGB(hue, 1, 1);
     }
 
     public static void main(String[] args) {
